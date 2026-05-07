@@ -12,7 +12,13 @@ const gameBoard = (() => {
             board[x][y] = mark;
         }
     }
-
-    return {markBoard, board};
+    const getBoard = () => board;
+    const resetBoard = () => {
+        board = [
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""]
+    ]};
+    return {markBoard, getBoard, resetBoard};
 }
 )();
