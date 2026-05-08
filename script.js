@@ -22,3 +22,9 @@ const gameBoard = (() => {
     return {markBoard, getBoard, resetBoard};
 }
 )();
+let markX = gameBoard.markBoard("X");
+let markO = gameBoard.markBoard("O");
+
+const displayController= (() => {
+
+})();
