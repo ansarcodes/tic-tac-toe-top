@@ -46,3 +46,8 @@ function players(playerName, playerMark) {
 };
 let player1 = players("Player1", "X");
 let player2 = players("Player2", "O");
+
+const gameController = (() => {
+    
+}
+)();
