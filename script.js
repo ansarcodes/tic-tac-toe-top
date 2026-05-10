@@ -1,27 +1,31 @@
 //iife
 const gameBoard = (() => {
     //private variable(array)
-    let board = [
-        ["", "", ""],
-        ["", "", ""],
-        ["", "", ""]
-    ];
+    let board = ["X","","","","X","","","","X"];
+    let winningCombination = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
     //factory function
     const markBoard = (mark) => {
-        return function(x, y) {
-            board[x][y] = mark;
+        return function(x) {
+            board[x] = mark;
         }
-    }
+    };
     const getBoard = () => board;
     const resetBoard = () => {
-        board = [
-        ["", "", ""],
-        ["", "", ""],
-        ["", "", ""]
-    ]};
-    return {markBoard, getBoard, resetBoard};
-}
-)();
+        board = ["","","","","","","","",""];
+    };
+    const checkWin = (mark) => {
+        let win = false;
+        for (const [x, y, z] of winningCombination) {
+            if (board[x] == mark && board[y] == mark && board[z] == mark){
+                win=true;
+                break;
+            } else {win=false;};
+        };
+        return win;
+    };
+    return {markBoard, getBoard, resetBoard, checkWin};
+})();
 let markX = gameBoard.markBoard("X");
 let markO = gameBoard.markBoard("O");
 
@@ -47,7 +51,7 @@ function players(playerName, playerMark) {
 let player1 = players("Player1", "X");
 let player2 = players("Player2", "O");
 
-const gameController = (() => {
-    
-}
-)();
+// const gameController = (() => {
+//     let board = gameBoard.getBoard();
+//     }
+// )();
