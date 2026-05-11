@@ -26,8 +26,8 @@ const gameBoard = (() => {
     };
     return {markBoard, getBoard, resetBoard, checkWin};
 })();
-let markX = gameBoard.markBoard("X");
-let markO = gameBoard.markBoard("O");
+// let markX = gameBoard.markBoard("X");
+// let markO = gameBoard.markBoard("O");
 
 const displayController= (() => {
 
@@ -48,10 +48,19 @@ function players(playerName, playerMark) {
 
     return {getName, getMark, getScore, getTurn, switchTurn};
 };
-let player1 = players("Player1", "X");
-let player2 = players("Player2", "O");
+// let player1 = players("Player1", "X");
+// let player2 = players("Player2", "O");
 
-// const gameController = (() => {
-//     let board = gameBoard.getBoard();
-//     }
-// )();
+const gameController = (() => {
+    let player1 = players("Player 1", "X");
+    let player2 = players("Player 2", "O");
+    const startGame = () => {
+        gameBoard.resetBoard();
+        player1.switchTurn();
+    };
+    const takeTurn = () => {
+        
+    }
+    return {player1, player2, startGame}
+    }
+)();
