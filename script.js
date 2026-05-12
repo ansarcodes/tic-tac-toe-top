@@ -1,7 +1,7 @@
 //iife
 const gameBoard = (() => {
     //private variable(array)
-    let board = ["X","","","","X","","","","X"];
+    let board = ["","","","","","","","",""];
     let winningCombination = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 
     //factory function
@@ -52,15 +52,28 @@ function players(playerName, playerMark) {
 // let player2 = players("Player2", "O");
 
 const gameController = (() => {
-    let player1 = players("Player 1", "X");
-    let player2 = players("Player 2", "O");
+    const playersPool = [];
+    playersPool[0] = players("Player 1", "X");
+    playersPool[1] = players("Player 2", "O");
     const startGame = () => {
         gameBoard.resetBoard();
-        player1.switchTurn();
+        playersPool[0].switchTurn();
     };
-    const takeTurn = () => {
-        
+    const scoreGame = () => {
+        gameBoard.checkWin
     }
-    return {player1, player2, startGame}
+    const takeTurn = (coordinate) => {
+        playersPool.forEach((player) => {
+            if (player.getTurn() == true) {
+                let playerMark = gameBoard.markBoard(player.getMark());
+                gameBoard.getBoard()[coordinate]==""?playerMark(coordinate):console.log();
+                player.switchTurn();
+                gameBoard.checkWin(player.getMark()) ? console.log(`${player.name()} won!`):console.log(`Score:${playersPool[0].getScore()}-${playersPool[1].getScore()}`);
+            } else {
+                player.switchTurn();
+            }
+        })
+    }
+    return {playersPool, startGame, takeTurn}
     }
 )();
