@@ -47,7 +47,7 @@ function players(playerName, playerMark) {
     const getTurn = () => turn;
     const switchTurn = () => {(turn) ? turn=false:turn=true;}
 
-    return {getName, getMark, getScore, resetScore, getTurn, switchTurn};
+    return {getName, getMark, getScore, addScore, resetScore, getTurn, switchTurn};
 };
 // let player1 = players("Player1", "X");
 // let player2 = players("Player2", "O");
@@ -74,6 +74,7 @@ const gameController = (() => {
             playersPool.forEach((player) => {
                 if (player.getTurn() == true) {
                     let playerMark = gameBoard.markBoard(player.getMark());
+                    playerMark(coordinate);
                     player.switchTurn();
                     scoreGame(player);
                 } else {
