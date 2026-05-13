@@ -61,7 +61,7 @@ const gameController = (() => {
         gameBoard.resetBoard();
         playersPool[0].switchTurn();
     };
-    const scoreGame = (player) => {
+    function scoreGame(player) {
         if (gameBoard.checkWin(player.getMark()) ){
             player.addScore();
             playersPool[0].getTurn()?playersPool[0].switchTurn():playersPool[1].switchTurn();
@@ -75,6 +75,7 @@ const gameController = (() => {
                 if (player.getTurn() == true) {
                     let playerMark = gameBoard.markBoard(player.getMark());
                     player.switchTurn();
+                    scoreGame(player);
                 } else {
                     player.switchTurn();
                 }
