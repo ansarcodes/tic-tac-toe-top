@@ -43,15 +43,17 @@ function players(playerName, playerMark) {
     const getMark = () => mark;
     const getScore = () => score;
     const addScore = () => ++score;
+    const resetScore = () => score=0;
     const getTurn = () => turn;
     const switchTurn = () => {(turn) ? turn=false:turn=true;}
 
-    return {getName, getMark, getScore, getTurn, switchTurn};
+    return {getName, getMark, getScore, resetScore, getTurn, switchTurn};
 };
 // let player1 = players("Player1", "X");
 // let player2 = players("Player2", "O");
 
 const gameController = (() => {
+    const board = gameBoard.getBoard();
     const playersPool = [];
     playersPool[0] = players("Player 1", "X");
     playersPool[1] = players("Player 2", "O");
@@ -59,20 +61,25 @@ const gameController = (() => {
         gameBoard.resetBoard();
         playersPool[0].switchTurn();
     };
-    const scoreGame = () => {
-        gameBoard.checkWin
+    const scoreGame = (player) => {
+        if (gameBoard.checkWin(player.getMark()) ){
+            player.addScore();
+            playersPool[0].getTurn()?playersPool[0].switchTurn():playersPool[1].switchTurn();
+        } else if (board.every(coordinate=>coordinate!="")){
+            playersPool[0].getTurn()?playersPool[0].switchTurn():playersPool[1].switchTurn();
+        }
     }
     const takeTurn = (coordinate) => {
-        playersPool.forEach((player) => {
-            if (player.getTurn() == true) {
-                let playerMark = gameBoard.markBoard(player.getMark());
-                gameBoard.getBoard()[coordinate]==""?playerMark(coordinate):console.log();
-                player.switchTurn();
-                gameBoard.checkWin(player.getMark()) ? console.log(`${player.name()} won!`):console.log(`Score:${playersPool[0].getScore()}-${playersPool[1].getScore()}`);
-            } else {
-                player.switchTurn();
-            }
-        })
+        if (board[coordinate] == "") {
+            playersPool.forEach((player) => {
+                if (player.getTurn() == true) {
+                    let playerMark = gameBoard.markBoard(player.getMark());
+                    player.switchTurn();
+                } else {
+                    player.switchTurn();
+                }
+            })
+        };
     }
     return {playersPool, startGame, takeTurn}
     }
