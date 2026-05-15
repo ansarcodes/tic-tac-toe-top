@@ -59,15 +59,32 @@ const gameController = (() => {
     const startGame = () => {
         gameBoard.resetBoard();
         turn = 1;
+        if(playerWon()){
+            playersPool[0].resetScore();
+            playersPool[1].resetScore();
+        }
     };
-    function scoreGame(player) {
-        if (gameBoard.checkWin(player.getMark()) ){
-            player.addScore();
-            turn = 0;
-            console.log(`${player.getName} wins!`)
-        } else if (board.every(coordinate=>coordinate!="")){
+    function playerWon() {
+        if (playersPool[0].getScore() == 3){
+            console.log(`${playersPool[0].getName()} won!`);
+            console.log(`${playersPool[0].getName()} ${playersPool[0].getScore()}-${playersPool[1].getScore()} ${playersPool[1].getName()}`);
+            return true;
+        } else if (playersPool[1].getScore() == 3){
+            console.log(`${playersPool[1].getName()} won!`);
+            console.log(`${playersPool[0].getName()} ${playersPool[0].getScore()}-${playersPool[1].getScore()} ${playersPool[1].getName()}`);
+            return true;
+        } else {
+            console.log(`${playersPool[0].getName()} ${playersPool[0].getScore()}-${playersPool[1].getScore()} ${playersPool[1].getName()}`);
+            return false}
+    };
+    function scoreGame() {
+        if (board.every(coordinate=>coordinate!="")){
             turn = 0;
             console.log("It's a tie!")
+        } else if(playersPool[0].checkWin()){
+            playersPool[0].addScore();
+            console.log("Player 1 scored.");
+            turn = 0;
         }
     }
     const takeTurn = (coordinate) => {
@@ -76,14 +93,14 @@ const gameController = (() => {
                 case 0:
                     break;
                 case 1:
-                    let playerMark = gameBoard.markBoard(playersPool[0].getMark());
-                    playerMark(coordinate);
+                    let player1mark = gameBoard.markBoard(playersPool[0].getMark());
+                    player1mark(coordinate);
                     turn = 2;
 
                     break;
                 case 2:
-                    let playerMark = gameBoard.markBoard(playersPool[1].getMark());
-                    playerMark(coordinate);
+                    let player2mark = gameBoard.markBoard(playersPool[1].getMark());
+                    player2mark(coordinate);
                     turn = 1;
                     break;
             }
