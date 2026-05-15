@@ -62,6 +62,7 @@ const gameController = (() => {
         playersPool[0].switchTurn();
     };
     function scoreGame(player) {
+        console.log((board.every(coordinate=>coordinate!="")));
         if (gameBoard.checkWin(player.getMark()) ){
             player.addScore();
             playersPool[0].getTurn()?playersPool[0].switchTurn():playersPool[1].switchTurn();
@@ -70,7 +71,7 @@ const gameController = (() => {
         }
     }
     const takeTurn = (coordinate) => {
-        if (board[coordinate] == "") {
+        if (board[coordinate] == "" && !playersPool.every((player)=>player.getTurn()==false)) {
             playersPool.forEach((player) => {
                 if (player.getTurn() == true) {
                     let playerMark = gameBoard.markBoard(player.getMark());
