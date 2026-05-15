@@ -55,31 +55,39 @@ const gameController = (() => {
     const playersPool = [];
     playersPool[0] = players("Player 1", "X");
     playersPool[1] = players("Player 2", "O");
-    let turn = 2; //no one's turn(0 = player 1; 1 = player 2)
+    let turn = 0; //no one's turn(1 = player 1; 2 = player 2)
     const startGame = () => {
         gameBoard.resetBoard();
-        turn = 0;
+        turn = 1;
     };
     function scoreGame(player) {
         if (gameBoard.checkWin(player.getMark()) ){
             player.addScore();
-            turn = 2;
+            turn = 0;
+            console.log(`${player.getName} wins!`)
         } else if (board.every(coordinate=>coordinate!="")){
-            turn = 2;
+            turn = 0;
+            console.log("It's a tie!")
         }
     }
     const takeTurn = (coordinate) => {
-        if (board[coordinate] == "" && ) {
-            playersPool.forEach((player) => {
-                if (player.getTurn() == true) {
-                    let playerMark = gameBoard.markBoard(player.getMark());
+        if (board[coordinate] == "") {
+            switch(turn){
+                case 0:
+                    break;
+                case 1:
+                    let playerMark = gameBoard.markBoard(playersPool[0].getMark());
                     playerMark(coordinate);
-                    scoreGame(player);
-                } else {
-                    player.switchTurn();
-                }
-            })
-        };
+                    turn = 2;
+
+                    break;
+                case 2:
+                    let playerMark = gameBoard.markBoard(playersPool[1].getMark());
+                    playerMark(coordinate);
+                    turn = 1;
+                    break;
+            }
+        } else {console.log("This square is already taken, try another!")}
     }
     return {playersPool, startGame, takeTurn}
     }
