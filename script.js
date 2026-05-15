@@ -81,9 +81,13 @@ const gameController = (() => {
         if (board.every(coordinate=>coordinate!="")){
             turn = 0;
             console.log("It's a tie!")
-        } else if(playersPool[0].checkWin()){
+        } else if(gameBoard.checkWin(playersPool[0].getMark())){
             playersPool[0].addScore();
             console.log("Player 1 scored.");
+            turn = 0;
+        } else if(gameBoard.checkWin(playersPool[1].getMark())){
+            playersPool[1].addScore();
+            console.log("Player 2 scored.");
             turn = 0;
         }
     }
@@ -96,12 +100,15 @@ const gameController = (() => {
                     let player1mark = gameBoard.markBoard(playersPool[0].getMark());
                     player1mark(coordinate);
                     turn = 2;
-
+                    scoreGame();
+                    playerWon();
                     break;
                 case 2:
                     let player2mark = gameBoard.markBoard(playersPool[1].getMark());
                     player2mark(coordinate);
                     turn = 1;
+                    scoreGame();
+                    playerWon();
                     break;
             }
         } else {console.log("This square is already taken, try another!")}
