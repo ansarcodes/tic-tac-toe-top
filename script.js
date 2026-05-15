@@ -44,10 +44,8 @@ function players(playerName, playerMark) {
     const getScore = () => score;
     const addScore = () => ++score;
     const resetScore = () => score=0;
-    const getTurn = () => turn;
-    const switchTurn = () => {(turn) ? turn=false:turn=true;}
 
-    return {getName, getMark, getScore, addScore, resetScore, getTurn, switchTurn};
+    return {getName, getMark, getScore, addScore, resetScore};
 };
 // let player1 = players("Player1", "X");
 // let player2 = players("Player2", "O");
@@ -57,6 +55,7 @@ const gameController = (() => {
     const playersPool = [];
     playersPool[0] = players("Player 1", "X");
     playersPool[1] = players("Player 2", "O");
+    const turn = 0; //no one's turn(1 = player 1; 2 = player 2)
     const startGame = () => {
         gameBoard.resetBoard();
         playersPool[0].switchTurn();
