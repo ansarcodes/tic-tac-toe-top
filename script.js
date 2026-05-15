@@ -51,7 +51,6 @@ function players(playerName, playerMark) {
 // let player2 = players("Player2", "O");
 
 const gameController = (() => {
-    const board = gameBoard.getBoard();
     const playersPool = [];
     playersPool[0] = players("Player 1", "X");
     playersPool[1] = players("Player 2", "O");
@@ -78,7 +77,7 @@ const gameController = (() => {
             return false}
     };
     function scoreGame() {
-        if (board.every(coordinate=>coordinate!="")){
+        if (gameBoard.getBoard().every(coordinate=>coordinate!="")){
             turn = 0;
             console.log("It's a tie!")
         } else if(gameBoard.checkWin(playersPool[0].getMark())){
@@ -92,7 +91,7 @@ const gameController = (() => {
         }
     }
     const takeTurn = (coordinate) => {
-        if (board[coordinate] == "") {
+        if (gameBoard.getBoard()[coordinate] == "") {
             switch(turn){
                 case 0:
                     break;
