@@ -55,27 +55,25 @@ const gameController = (() => {
     const playersPool = [];
     playersPool[0] = players("Player 1", "X");
     playersPool[1] = players("Player 2", "O");
-    const turn = 0; //no one's turn(1 = player 1; 2 = player 2)
+    let turn = 2; //no one's turn(0 = player 1; 1 = player 2)
     const startGame = () => {
         gameBoard.resetBoard();
-        playersPool[0].switchTurn();
+        turn = 0;
     };
     function scoreGame(player) {
-        console.log((board.every(coordinate=>coordinate!="")));
         if (gameBoard.checkWin(player.getMark()) ){
             player.addScore();
-            playersPool[0].getTurn()?playersPool[0].switchTurn():playersPool[1].switchTurn();
+            turn = 2;
         } else if (board.every(coordinate=>coordinate!="")){
-            playersPool[0].getTurn()?playersPool[0].switchTurn():playersPool[1].switchTurn();
+            turn = 2;
         }
     }
     const takeTurn = (coordinate) => {
-        if (board[coordinate] == "" && !playersPool.every((player)=>player.getTurn()==false)) {
+        if (board[coordinate] == "" && ) {
             playersPool.forEach((player) => {
                 if (player.getTurn() == true) {
                     let playerMark = gameBoard.markBoard(player.getMark());
                     playerMark(coordinate);
-                    player.switchTurn();
                     scoreGame(player);
                 } else {
                     player.switchTurn();
