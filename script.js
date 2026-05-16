@@ -29,9 +29,19 @@ const gameBoard = (() => {
 // let markX = gameBoard.markBoard("X");
 // let markO = gameBoard.markBoard("O");
 
-const displayController= (() => {
-
-})();
+function displayController(){
+    const boardContainer = document.querySelector(".board");
+    boardContainer.replaceChildren();
+    gameBoard.getBoard().forEach((square, index) => {
+        let squareDiv = document.createElement("div");
+        squareDiv.setAttribute("class", "square");
+        squareDiv.innerText = square;
+        squareDiv.addEventListener("click", () => {
+            gameController.takeTurn(index);
+        });
+        boardContainer.appendChild(squareDiv);
+    })
+};
 
 function players(playerName, playerMark) {
     const name = playerName;
@@ -57,6 +67,7 @@ const gameController = (() => {
     let turn = 0; //no one's turn(1 = player 1; 2 = player 2)
     const startGame = () => {
         gameBoard.resetBoard();
+        displayController();
         turn = 1;
         if(playerWon()){
             playersPool[0].resetScore();
@@ -101,6 +112,7 @@ const gameController = (() => {
                     turn = 2;
                     scoreGame();
                     playerWon();
+                    displayController();
                     break;
                 case 2:
                     let player2mark = gameBoard.markBoard(playersPool[1].getMark());
@@ -108,6 +120,7 @@ const gameController = (() => {
                     turn = 1;
                     scoreGame();
                     playerWon();
+                    displayController();
                     break;
             }
         } else {console.log("This square is already taken, try another!")}
@@ -115,3 +128,4 @@ const gameController = (() => {
     return {playersPool, startGame, takeTurn}
     }
 )();
+displayController();
