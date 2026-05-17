@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: "Vanilla Cream Ox Font";
+    font-family: "Vanilla Cream Ox Font", Arial, Helvetica, sans-serif;
 }
 @font-face {
     font-family: "Vanilla Cream Ox Font";
@@ -33,4 +33,10 @@
     align-items: center;
     border-left: 3px solid red;
     border-bottom: 3px solid red;;
+}
+.controls {
+    margin-top: 1rem;
+    font-size: 2.5rem;
+    text-align: center;
+    text-decoration: underline solid 0.125rem;
 }
