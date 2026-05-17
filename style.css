@@ -1,7 +1,18 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Vanilla Cream Ox Font";
+}
+@font-face {
+    font-family: "Vanilla Cream Ox Font";
+    src: url("fonts/vanilla-cream-ox.regular.otf") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+.header {
+    width: 100%;
+    text-align: center;
+    font-size: 10rem;
 }
 .main-container{
     display: flex;
@@ -11,15 +22,15 @@
     display: grid;
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
-    border-top: 1px solid red;
-    border-right: 1px solid red;
+    border-top: 3px solid red;
+    border-right: 3px solid red;
     width: min-content;
-    font-size: 2rem;
+    font-size: 5rem;
 }
 .square {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-left: 1px solid red;
-    border-bottom: 1px solid red;;
+    border-left: 3px solid red;
+    border-bottom: 3px solid red;;
 }
