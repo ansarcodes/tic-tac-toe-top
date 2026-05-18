@@ -9,9 +9,18 @@
 <body>
     <div class="header">Tic Tac Toe</div>
     <div class="main-container">
-        <div class="players-info"></div>
+        <form id="players-info-form">
+            <div class="player1">
+                <label for="player1-name">Player 1 (X):</label>
+                <input type="text" id="player1-name">
+            </div>
+            <div class="player2">
+                <label for="player2-name">Player 2 (O):</label>
+                <input type="text" id="player2-name">
+            </div>
+        </form>
         <div class="board"></div>
-        <div class="player-scores"></div>
+        <div class="players-scores">Scores</div>
     </div>
     <div class="controls">(RE)START</div>
     <script src="script.js"></script>
