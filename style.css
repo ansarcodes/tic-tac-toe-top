@@ -44,21 +44,41 @@ body {
 .player1, .player2 {
     display: grid;
     grid-template-columns: 12rem 12rem;
+    border-bottom: 0.125rem solid black;
 }
 input {
     font-size: 2.5rem;
     min-width: 0;
+    border: none;
 }
-.players-scores {
+input:focus {
+    border: none;
+    outline: none;
+}
+.players-score {
     font-size: 2.5rem;
     display: flex;
     justify-content: center;
 }
 
-/* input {
-    font-size: 2.5rem;
-    width: min-content;
-} */
+.score-table {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 2.5rem);
+}
+.score-table > div {
+    border-bottom: 0.125rem solid black;
+    text-align: center;
+    padding-right: 1rem;
+}
+.score-table .player1-name, .score-table .player2-name {
+    border-right: 0.125rem solid black;
+}
+.score-head {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    text-align: center;
+}
 
 .square {
     display: flex;
