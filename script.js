@@ -48,13 +48,13 @@ function players(playerName, playerMark) {
     const mark = playerMark;
     let score = 0;
     let turn = false;
-
+    
     const getName = () => name;
     const getMark = () => mark;
     const getScore = () => score;
     const addScore = () => ++score;
     const resetScore = () => score=0;
-
+    
     return {getName, getMark, getScore, addScore, resetScore};
 };
 // let player1 = players("Player1", "X");
@@ -62,8 +62,8 @@ function players(playerName, playerMark) {
 
 const gameController = (() => {
     const playersPool = [];
-    playersPool[0] = players("Player 1", "X");
-    playersPool[1] = players("Player 2", "O");
+    playersPool[0] = players(document.querySelector("#player1-name").value, "X");
+    playersPool[1] = players(document.querySelector("#player2-name").value, "O");
     let turn = 0; //no one's turn(1 = player 1; 2 = player 2)
     const startGame = () => {
         gameBoard.resetBoard();
@@ -73,6 +73,12 @@ const gameController = (() => {
             playersPool[0].resetScore();
             playersPool[1].resetScore();
         }
+        document.querySelector("#player1-name").disabled = true;
+        document.querySelector("#player2-name").disabled = true;
+        document.querySelector(".player1-name").textContent = playersPool[0].getName();
+        document.querySelector(".player2-name").textContent = playersPool[1].getName();
+        document.querySelector(".player1-score").textContent = playersPool[0].getScore();
+        document.querySelector(".player2-score").textContent = playersPool[1].getScore();
     };
     function playerWon() {
         if (playersPool[0].getScore() == 3){
@@ -86,46 +92,49 @@ const gameController = (() => {
         } else {
             console.log(`${playersPool[0].getName()} ${playersPool[0].getScore()}-${playersPool[1].getScore()} ${playersPool[1].getName()}`);
             return false}
-    };
-    function scoreGame() {
-        if (gameBoard.getBoard().every(coordinate=>coordinate!="")){
-            turn = 0;
-            console.log("It's a tie!")
-        } else if(gameBoard.checkWin(playersPool[0].getMark())){
-            playersPool[0].addScore();
-            console.log("Player 1 scored.");
-            turn = 0;
-        } else if(gameBoard.checkWin(playersPool[1].getMark())){
-            playersPool[1].addScore();
-            console.log("Player 2 scored.");
-            turn = 0;
-        }
-    }
-    const takeTurn = (coordinate) => {
-        if (gameBoard.getBoard()[coordinate] == "") {
-            switch(turn){
-                case 0:
-                    break;
-                case 1:
-                    let player1mark = gameBoard.markBoard(playersPool[0].getMark());
-                    player1mark(coordinate);
-                    turn = 2;
-                    scoreGame();
-                    playerWon();
-                    displayController();
-                    break;
-                case 2:
-                    let player2mark = gameBoard.markBoard(playersPool[1].getMark());
-                    player2mark(coordinate);
-                    turn = 1;
-                    scoreGame();
-                    playerWon();
-                    displayController();
-                    break;
+        };
+        function scoreGame() {
+            if (gameBoard.getBoard().every(coordinate=>coordinate!="")){
+                turn = 0;
+                console.log("It's a tie!")
+            } else if(gameBoard.checkWin(playersPool[0].getMark())){
+                playersPool[0].addScore();
+                document.querySelector(".player1-score").textContent = playersPool[0].getScore();
+                console.log("Player 1 scored.");
+                turn = 0;
+            } else if(gameBoard.checkWin(playersPool[1].getMark())){
+                playersPool[1].addScore();
+                document.querySelector(".player2-score").textContent = playersPool[1].getScore();
+                console.log("Player 2 scored.");
+                turn = 0;
             }
-        } else {console.log("This square is already taken, try another!")}
-    }
-    return {playersPool, startGame, takeTurn}
-    }
-)();
+        }
+        const takeTurn = (coordinate) => {
+            if (gameBoard.getBoard()[coordinate] == "") {
+                switch(turn){
+                    case 0:
+                        break;
+                        case 1:
+                            let player1mark = gameBoard.markBoard(playersPool[0].getMark());
+                            player1mark(coordinate);
+                            turn = 2;
+                            scoreGame();
+                            playerWon();
+                            displayController();
+                            break;
+                            case 2:
+                                let player2mark = gameBoard.markBoard(playersPool[1].getMark());
+                                player2mark(coordinate);
+                                turn = 1;
+                                scoreGame();
+                                playerWon();
+                                displayController();
+                                break;
+                            }
+                        } else {console.log("This square is already taken, try another!")}
+                    }
+                    return {playersPool, startGame, takeTurn}
+                }
+            )();
+                       
 displayController();

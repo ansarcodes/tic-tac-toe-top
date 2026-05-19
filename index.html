@@ -11,12 +11,12 @@
     <div class="main-container">
         <form id="players-info-form">
             <div class="player1">
-                <label for="player1-name" class="player1-name">Player 1 (X):</label>
-                <input type="text" id="player1-name">
+                <label for="player1-name">X:</label>
+                <input type="text" id="player1-name" value="Player 1">
             </div>
             <div class="player2">
-                <label for="player2-name" class="player2-name">Player 2 (O):</label>
-                <input type="text" id="player2-name">
+                <label for="player2-name">O:</label>
+                <input type="text" id="player2-name" value="Player 2">
             </div>
         </form>
         <div class="board"></div>
@@ -30,7 +30,10 @@
             </div>
         </div>
     </div>
-    <div class="controls">(RE)START</div>
+    <div class="controls">
+        <div class="start">START</div>
+        <div class="reset">RESET</div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

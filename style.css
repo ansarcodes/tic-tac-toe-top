@@ -42,8 +42,8 @@ body {
     gap: 1rem;
 }
 .player1, .player2 {
-    display: grid;
-    grid-template-columns: 12rem 12rem;
+    display: flex;
+    width: 24rem;
     border-bottom: 0.125rem solid black;
 }
 input {
@@ -91,4 +91,7 @@ input:focus {
     margin-top: 1rem;
     font-size: 2.5rem;
     text-decoration: underline solid 0.125rem;
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
 }
