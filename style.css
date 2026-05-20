@@ -55,6 +55,10 @@ input:focus {
     border: none;
     outline: none;
 }
+.won::after {
+    content: "WON-";
+    color: red;
+}
 .players-score {
     font-size: 2.5rem;
     display: flex;

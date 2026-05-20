@@ -48,7 +48,6 @@ function players(playerName, playerMark) {
     const name = playerName;
     const mark = playerMark;
     let score = 0;
-    let turn = false;
     
     const getName = () => name;
     const getMark = () => mark;
@@ -65,20 +64,25 @@ const gameController = (() => {
     const playersPool = [];
     playersPool[0] = players(document.querySelector("#player1-name").value, "X");
     playersPool[1] = players(document.querySelector("#player2-name").value, "O");
+    let turn = 0; //no one's turn(1 = player 1; 2 = player 2)
     const resetGameScore= () => {
         playersPool[0].resetScore();
         playersPool[1].resetScore();
+        document.querySelector("#player1-name").disabled = false;
+        document.querySelector("#player2-name").disabled = false;
+        turn = 0;
     }
-    let turn = 0; //no one's turn(1 = player 1; 2 = player 2)
     const startGame = () => {
-        gameBoard.resetBoard();
-        displayController();
-        turn = 1;
         if(playerWon()){
             resetGameScore();
         }
+        gameBoard.resetBoard();
+        displayController();
+        turn = 1;
         document.querySelector("#player1-name").disabled = true;
         document.querySelector("#player2-name").disabled = true;
+        document.querySelector("#player1-label").classList.remove("won");
+        document.querySelector("#player2-label").classList.remove("won");
         document.querySelector(".player1-name").textContent = playersPool[0].getName();
         document.querySelector(".player2-name").textContent = playersPool[1].getName();
         document.querySelector(".player1-score").textContent = playersPool[0].getScore();
@@ -86,15 +90,17 @@ const gameController = (() => {
     };
     function playerWon() {
         if (playersPool[0].getScore() == 3){
-            console.log(`${playersPool[0].getName()} won!`);
-            console.log(`${playersPool[0].getName()} ${playersPool[0].getScore()}-${playersPool[1].getScore()} ${playersPool[1].getName()}`);
+            document.querySelector("#player1-label").classList.add("won");
+            // console.log(`${playersPool[0].getName()} won!`);
+            // console.log(`${playersPool[0].getName()} ${playersPool[0].getScore()}-${playersPool[1].getScore()} ${playersPool[1].getName()}`);
             return true;
         } else if (playersPool[1].getScore() == 3){
-            console.log(`${playersPool[1].getName()} won!`);
-            console.log(`${playersPool[0].getName()} ${playersPool[0].getScore()}-${playersPool[1].getScore()} ${playersPool[1].getName()}`);
+            document.querySelector("#player2-label").classList.add("won");
+            // console.log(`${playersPool[1].getName()} won!`);
+            // console.log(`${playersPool[0].getName()} ${playersPool[0].getScore()}-${playersPool[1].getScore()} ${playersPool[1].getName()}`);
             return true;
         } else {
-            console.log(`${playersPool[0].getName()} ${playersPool[0].getScore()}-${playersPool[1].getScore()} ${playersPool[1].getName()}`);
+            // console.log(`${playersPool[0].getName()} ${playersPool[0].getScore()}-${playersPool[1].getScore()} ${playersPool[1].getName()}`);
             return false}
         };
         function scoreGame() {
@@ -141,7 +147,13 @@ const gameController = (() => {
                 }
             )();
             
-            document.querySelector(".start").addEventListener("click", () => {
-                gameController.startGame();
-            });
+document.querySelector(".start").addEventListener("click", () => {
+    gameController.startGame();
+});
+document.querySelector(".reset").addEventListener("click", () => {
+    gameController.resetGameScore();
+    gameBoard.resetBoard();
+    displayController();
+    
+})
 displayController();
