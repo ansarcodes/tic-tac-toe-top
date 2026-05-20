@@ -64,14 +64,17 @@ const gameController = (() => {
     const playersPool = [];
     playersPool[0] = players(document.querySelector("#player1-name").value, "X");
     playersPool[1] = players(document.querySelector("#player2-name").value, "O");
+    const resetGameScore= () => {
+        playersPool[0].resetScore();
+        playersPool[1].resetScore();
+    }
     let turn = 0; //no one's turn(1 = player 1; 2 = player 2)
     const startGame = () => {
         gameBoard.resetBoard();
         displayController();
         turn = 1;
         if(playerWon()){
-            playersPool[0].resetScore();
-            playersPool[1].resetScore();
+            resetGameScore();
         }
         document.querySelector("#player1-name").disabled = true;
         document.querySelector("#player2-name").disabled = true;
@@ -133,8 +136,11 @@ const gameController = (() => {
                             }
                         } else {console.log("This square is already taken, try another!")}
                     }
-                    return {playersPool, startGame, takeTurn}
+                    return {startGame, takeTurn, resetGameScore}
                 }
             )();
-                       
+
+document.querySelector(".start").addEventListener("click", () => {
+    gameController.startGame();
+});
 displayController();
