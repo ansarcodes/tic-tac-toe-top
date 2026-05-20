@@ -3,7 +3,6 @@ const gameBoard = (() => {
     //private variable(array)
     let board = ["","","","","","","","",""];
     let winningCombination = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-
     //factory function
     const markBoard = (mark) => {
         return function(x) {
@@ -18,12 +17,14 @@ const gameBoard = (() => {
         let win = false;
         for (const [x, y, z] of winningCombination) {
             if (board[x] == mark && board[y] == mark && board[z] == mark){
+                winningCoords = [x,y,z];
                 win=true;
                 break;
             } else {win=false;};
         };
         return win;
     };
+    const getWinningCoords = () => winningCoords;
     return {markBoard, getBoard, resetBoard, checkWin};
 })();
 // let markX = gameBoard.markBoard("X");
@@ -139,8 +140,8 @@ const gameController = (() => {
                     return {startGame, takeTurn, resetGameScore}
                 }
             )();
-
-document.querySelector(".start").addEventListener("click", () => {
-    gameController.startGame();
-});
+            
+            document.querySelector(".start").addEventListener("click", () => {
+                gameController.startGame();
+            });
 displayController();
